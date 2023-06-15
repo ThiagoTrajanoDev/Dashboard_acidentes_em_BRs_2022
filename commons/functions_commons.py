@@ -155,16 +155,23 @@ def create_scatter(df):
         y='count',
         color='condicao_metereologica',
         facet_col='turno',
+        labels={'turno':'Turno','count':'Quantidade de acidentes','mortos':"Nº de mortos",'condicao_metereologica':"Condição metereológica"},
+        facet_col_spacing=0.05,
+        color_discrete_sequence=px.colors.qualitative.Prism,
+        title="Acidentes/mortes porcondição motereológica ao longo do dia",
         log_y=True,
         log_x=True,
         height=600,
+        
     )
 
 
 def scatter_chart(df, state):
     state = state.upper()
     subseted_df = subset_df_by_deaths_and_climate_conditions(df, state)
-    return create_scatter(subseted_df)
+    fig = create_scatter(subseted_df)
+    fig = fig.update_xaxes(tickangle=90)
+    return fig
 
 
 def subset_df_by_accident(df, state):
@@ -192,7 +199,10 @@ def create_scatter_map(df, state):
         color='br',
         hover_data={'municipio': True, 'id': False, 'latitude': False, 'longitude': False, 'condicao_metereologica': True, 'br': True,
                     'classificacao_acidente': True, 'count': True, 'causa_acidente': True, 'mes': False, "mes_nome": True, 'km': True},
+        labels={'municipio': 'Cidade', 'condicao_metereologica': "Condição metereológica", 'br':"BR (Rodovia)",
+                    'classificacao_acidente': "Classificação", 'count': "Quantidade de envolvidos", 'causa_acidente': 'Causa do acidente',  "mes_nome": "Mês", 'km': 'Km'},
         mapbox_style='open-street-map',
+        title="Mapemento geográfico dos acidentes",
         color_discrete_sequence=px.colors.qualitative.Prism,
         size='count',
         zoom=states_data[state]['zoom'] if state != 'BR' else 1.2
@@ -226,6 +236,8 @@ def create_bar_chart(df, state):
         log_x=True,
         orientation='h',
         text='count',
+        labels={'condicao_metereologica':"Condição Metereológica","count":"Quantidade de acidentes","causa_acidente":"Causa do acidente"},
+        title="Quantidade de acidentes por condição climática",
         color_discrete_sequence=px.colors.qualitative.Prism,
         height=600,
     )
