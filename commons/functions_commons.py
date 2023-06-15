@@ -158,7 +158,7 @@ def create_scatter(df):
         labels={'turno':'Turno','count':'Quantidade de acidentes','mortos':"Nº de mortos",'condicao_metereologica':"Condição metereológica"},
         facet_col_spacing=0.05,
         color_discrete_sequence=px.colors.qualitative.Prism,
-        title="Acidentes/mortes porcondição motereológica ao longo do dia",
+        title="Acidentes/mortes por condição motereológica ao longo do dia",
         log_y=True,
         log_x=True,
         height=600,
